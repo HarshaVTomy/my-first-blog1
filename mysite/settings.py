@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
+import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -75,17 +77,23 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
+# DATABASES['default']=dj_database_url.parse("postgresql://djangogirls_s0m5_user:rjQ3dDsBwA1qdMtHhYfq43MfCdAtgMBV@dpg-crf8jh5svqrc73f5a8pg-a.singapore-postgres.render.com/djangogirls_s0m5")
 
-
+# DATABASES=["default"] = dj_database_url.parse('postgresql://django_girls_user:qIGI2Wcx0sMyf0M7Nwcc61336dC4egTm@dpg-cr8n61aj1k6c73f5copg-a.singapore-postgres.render.com/django_girls')
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
+#postgresql://djangogirls_s0m5_user:rjQ3dDsBwA1qdMtHhYfq43MfCdAtgMBV@dpg-crf8jh5svqrc73f5a8pg-a.singapore-postgres.render.com/djangogirls_s0m5
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
